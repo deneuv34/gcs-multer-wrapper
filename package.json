@@ -1,9 +1,9 @@
 {
   "name": "gcs-multer-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Google Cloud Storage Wrapper for Multer",
   "main": "lib/index.js",
-   "types": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "tsc",
