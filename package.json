@@ -1,6 +1,6 @@
 {
   "name": "gcs-multer-wrapper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Google Cloud Storage Wrapper for Multer",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
