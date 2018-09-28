@@ -43,7 +43,7 @@ export class GoogleCloudStorage implements Multer.StorageEngine {
     return 'https://storage.googleapis.com/' + this.options.bucket + '/' + filename;
   }
 
-  constructor(opts?: StorageOptions & { acl?: 'publicread' | 'private', filename?: any; bucket?: string }) {
+  constructor(opts?: StorageOptions & { acl?: string, filename?: any; bucket?: string }) {
     opts = opts || {};
 
     this.getFilename = opts.filename || this.getFilename;
