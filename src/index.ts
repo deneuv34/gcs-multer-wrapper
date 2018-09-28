@@ -13,7 +13,7 @@ import * as uuid from 'uuid/v1';
 export class GoogleCloudStorage implements Multer.StorageEngine {
   private gceStorage: Storage;
   private gcsBucket: Bucket;
-  private options?: StorageOptions & { acl?: string | 'publicread' | 'private'; bucket?: string };
+  private options?: StorageOptions & { acl?: string | 'publicread' | 'private', bucket?: string };
 
   /**
    * Get File name
