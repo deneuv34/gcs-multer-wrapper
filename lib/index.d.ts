@@ -8,6 +8,7 @@ export declare class GoogleCloudStorage implements Multer.StorageEngine {
     getDestination(req: any, file: any, callback: any): void;
     getPublicUrl(filename: any): string;
     constructor(opts?: StorageOptions & {
+        acl?: 'publicread' | 'private';
         filename?: any;
         bucket?: string;
     });
