@@ -13,7 +13,7 @@ import * as uuid from 'uuid/v1';
 export class GoogleCloudStorage implements Multer.StorageEngine {
   private gceStorage: Storage;
   private gcsBucket: Bucket;
-  private options?: StorageOptions & { acl?: string | 'publicread' | 'private', bucket?: string };
+  private options?: StorageOptions & { acl?: string | 'publicread' | 'private', bucket?: string, prefix?: string };
 
   /**
    * Get File name
@@ -40,10 +40,17 @@ export class GoogleCloudStorage implements Multer.StorageEngine {
   }
 
   getPublicUrl(filename) {
-    return 'https://storage.googleapis.com/' + this.options.bucket + '/' + filename;
+    return 'https://storage.googleapis.com/' + this.options.bucket + this.getPrefix(this.options.prefix) + filename;
   }
 
-  constructor(opts?: StorageOptions & { acl?: string, filename?: any; bucket?: string }) {
+  getPrefix(prefix: string | null | undefined) {
+    if (prefix === '' || prefix === undefined || prefix == null) {
+      return '/'
+    }
+    return '/' + prefix + '/'
+  }
+
+  constructor(opts?: StorageOptions & { acl?: string, filename?: any; bucket?: string, prefix?: string }) {
     opts = opts || {};
 
     this.getFilename = opts.filename || this.getFilename;
@@ -80,7 +87,7 @@ export class GoogleCloudStorage implements Multer.StorageEngine {
         if (err) {
           return callback(err);
         }
-        const gcFile = this.gcsBucket.file(filename);
+        const gcFile = this.gcsBucket.file(this.getPrefix(this.options.prefix) + filename);
         file.stream
           .pipe(gcFile.createWriteStream({ predefinedAcl: this.options.acl || 'private' }))
           // tslint:disable-next-line:no-shadowed-variable
